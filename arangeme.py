@@ -5,25 +5,155 @@ from tkinter import Tk, filedialog
 
 # Define the file extensions and corresponding target folders
 extensions = {
+    # Programming and Scripting Files
     '.py': 'python-code',
-    '.html': 'html-code',
     '.js': 'js-code',
-    '.txt': 'txt-file',
-    '.jpg': 'images',
-    '.png': 'images',
+    '.java': 'java-code',
+    '.cpp': 'cpp-code',
+    '.c': 'c-code',
+    '.cs': 'csharp-code',
+    '.go': 'go-code',
+    '.rb': 'ruby-code',
+    '.php': 'php-code',
+    '.swift': 'swift-code',
+    '.kt': 'kotlin-code',
+    '.ts': 'typescript-code',
+    '.sh': 'shell-scripts',
+    '.pl': 'perl-scripts',
+    '.lua': 'lua-scripts',
+    '.r': 'r-scripts',
+    '.sql': 'sql-scripts',
+    '.hs': 'haskell-code',
+    '.scala': 'scala-code',
+    '.dart': 'dart-code',
+
+    # Web Development Files
+    '.html': 'html-code',
+    '.css': 'css-files',
+    '.scss': 'scss-files',
+    '.less': 'less-files',
+    '.jsx': 'react-jsx',
+    '.tsx': 'react-tsx',
+    '.vue': 'vue-files',
+    '.svelte': 'svelte-files',
+    '.ejs': 'ejs-templates',
+    '.pug': 'pug-templates',
+    '.json': 'json-data',
+    '.xml': 'xml-data',
+    '.yaml': 'yaml-data',
+    '.yml': 'yaml-data',
+
+    # Documents
     '.pdf': 'documents',
+    '.doc': 'documents',
     '.docx': 'documents',
+    '.xls': 'documents',
     '.xlsx': 'documents',
+    '.ppt': 'documents',
+    '.pptx': 'documents',
+    '.odt': 'documents',
+    '.ods': 'documents',
+    '.odp': 'documents',
+    '.rtf': 'documents',
+    '.txt': 'text-files',
+    '.md': 'markdown-files',
+    '.tex': 'latex-files',
+
+    # Images
+    '.jpg': 'images',
+    '.jpeg': 'images',
+    '.png': 'images',
+    '.gif': 'images',
+    '.bmp': 'images',
+    '.svg': 'vector-images',
+    '.webp': 'images',
+    '.tiff': 'images',
+    '.ico': 'icons',
+    '.psd': 'photoshop-files',
+    '.ai': 'illustrator-files',
+    '.eps': 'vector-images',
+
+    # Audio
     '.mp3': 'audio',
+    '.wav': 'audio',
+    '.ogg': 'audio',
+    '.flac': 'audio',
+    '.aac': 'audio',
+    '.m4a': 'audio',
+    '.wma': 'audio',
+
+    # Videos
     '.mp4': 'videos',
+    '.mkv': 'videos',
+    '.avi': 'videos',
+    '.mov': 'videos',
+    '.wmv': 'videos',
+    '.flv': 'videos',
+    '.webm': 'videos',
+    '.mpeg': 'videos',
+    '.mpg': 'videos',
+    '.3gp': 'videos',
+
+    # Archives
     '.zip': 'archives',
     '.rar': 'archives',
+    '.tar': 'archives',
+    '.gz': 'archives',
+    '.7z': 'archives',
+    '.bz2': 'archives',
+    '.xz': 'archives',
+    '.iso': 'disk-images',
+
+    # Data and Databases
     '.csv': 'data',
     '.json': 'data',
-    '.css': 'web-files',
-    '.php': 'web-files',
-    '.cpp': 'cpp-code',
-    '.java': 'java-code',
+    '.xml': 'data',
+    '.db': 'databases',
+    '.sqlite': 'databases',
+    '.mdb': 'databases',
+    '.accdb': 'databases',
+
+    # Executables and Binaries
+    '.exe': 'executables',
+    '.msi': 'installers',
+    '.dmg': 'mac-installers',
+    '.pkg': 'mac-installers',
+    '.deb': 'linux-packages',
+    '.rpm': 'linux-packages',
+    '.apk': 'android-apps',
+    '.app': 'mac-apps',
+
+    # Fonts
+    '.ttf': 'fonts',
+    '.otf': 'fonts',
+    '.woff': 'fonts',
+    '.woff2': 'fonts',
+    '.eot': 'fonts',
+
+    # Virtual Machines and Containers
+    '.ova': 'virtual-machines',
+    '.ovf': 'virtual-machines',
+    '.vmdk': 'virtual-machines',
+    '.vdi': 'virtual-machines',
+    '.dockerfile': 'docker-files',
+    '.yml': 'docker-compose',
+
+    # Configuration Files
+    '.ini': 'config-files',
+    '.cfg': 'config-files',
+    '.conf': 'config-files',
+    '.env': 'config-files',
+    '.properties': 'config-files',
+
+    # Miscellaneous
+    '.log': 'logs',
+    '.bak': 'backups',
+    '.tmp': 'temporary-files',
+    '.lock': 'lock-files',
+    '.pid': 'process-id-files',
+    '.gitignore': 'git-files',
+    '.gitattributes': 'git-files',
+    '.dockerignore': 'docker-files',
 }
 
 def flag():
@@ -31,7 +161,7 @@ def flag():
     print(f"""         
          *************************************
          *      Hello ,Welcome to Arranger    *
-         *         Made by Nour Sallam       *
+         *         Made by Nour Sallam        *
          *************************************
          
          [1] Auto-arrange files
@@ -49,19 +179,23 @@ def choose_directory():
 
 def autoArrange(source_dir):
     """Automatically arrange files into their respective folders based on extensions."""
+    if not source_dir:
+        print("No directory selected. Returning to main menu.")
+        return
+
     for file in os.listdir(source_dir):
-        # Loop through the file extensions
-        for ext, folder in extensions.items():
-            if file.endswith(ext):
-                # Create the folder if it doesn't exist
-                target_folder = os.path.join(source_dir, folder)
-                if not os.path.exists(target_folder):
-                    os.makedirs(target_folder)
-                
-                # Move the file to the corresponding folder
-                shutil.move(os.path.join(source_dir, file), os.path.join(target_folder, file))
-                print(f"Moved {file} to {folder}")
-                break  # Exit the loop once the file is moved
+        file_path = os.path.join(source_dir, file)
+        if os.path.isfile(file_path):  # Ensure it's a file (not a folder)
+            for ext, folder in extensions.items():
+                if file.endswith(ext):
+                    # Create the folder if it doesn't exist
+                    target_folder = os.path.join(source_dir, folder)
+                    os.makedirs(target_folder, exist_ok=True)
+                    
+                    # Move the file to the corresponding folder
+                    shutil.move(file_path, os.path.join(target_folder, file))
+                    print(f"Moved {file} to {folder}")
+                    break  # Exit the loop once the file is moved
 
 def addSpecific(source_dir):
     """
@@ -114,6 +248,10 @@ def calculate_file_hash(file_path):
 
 def deleteDuplicates(source_dir):
     """Delete duplicate files in the specified directory."""
+    if not source_dir:
+        print("No directory selected. Returning to main menu.")
+        return
+
     hash_to_files = {}
 
     # Loop through all files in the directory
@@ -152,23 +290,14 @@ def main():
         if choice == '1':
             # Auto-arrange files
             source_dir = choose_directory()
-            if not source_dir:
-                print("No directory selected. Returning to main menu.")
-                continue
             autoArrange(source_dir)
         elif choice == '2':
             # Add specific key arrangement
             source_dir = choose_directory()
-            if not source_dir:
-                print("No directory selected. Returning to main menu.")
-                continue
             addSpecific(source_dir)
         elif choice == '3':
             # Delete duplicated files
             source_dir = choose_directory()
-            if not source_dir:
-                print("No directory selected. Returning to main menu.")
-                continue
             deleteDuplicates(source_dir)
         elif choice == '4':
             # Exit the program
